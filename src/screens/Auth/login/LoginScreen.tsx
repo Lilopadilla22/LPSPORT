@@ -118,8 +118,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 120,
     height: 120,
+    borderRadius: 70,
+    overflow: 'hidden',
     alignSelf: 'center',
     marginBottom: 24,
+    backgroundColor: '#fff',
   },
   label: { fontWeight: 'bold', marginTop: 10, marginBottom: 4 },
   input: {
