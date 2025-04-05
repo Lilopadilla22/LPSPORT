@@ -4,7 +4,9 @@ import React, {
   useState,
   ReactNode,
   useMemo,
+  useEffect,
 } from 'react';
+import auth from '@react-native-firebase/auth';
 
 export type UserLevel = 'novato' | 'intermedio' | 'avanzado';
 
@@ -17,7 +19,6 @@ export type User = {
   city?: string;
   level?: UserLevel;
   cc?: string;
-  numid?: number;
   isGuest?: boolean;
 };
 
@@ -26,12 +27,14 @@ type UserContextType = {
   setUser: (user: User | null) => void;
   setGuestUser: () => void;
   logout: () => void;
+  loading: boolean;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const setGuestUser = () => {
     setUser({
@@ -42,7 +45,27 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    auth().signOut();
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email ?? '',
+          displayName: firebaseUser.displayName ?? '',
+          isGuest: false,
+        });
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -50,8 +73,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setUser,
       setGuestUser,
       logout,
+      loading,
     }),
-    [user]
+    [user, loading]
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
