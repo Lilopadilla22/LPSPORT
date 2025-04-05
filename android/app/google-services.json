@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "364349480948",
+    "project_id": "lpsport-1f046",
+    "storage_bucket": "lpsport-1f046.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364349480948:android:7dbb6e3278825ceacc23a1",
+        "android_client_info": {
+          "package_name": "com.lpsport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPO8pwEazKexGBxxmur13HgIuoiru_IGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
