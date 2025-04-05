@@ -40,8 +40,6 @@ export function useLoginScreen() {
 
       const user = userCredential.user;
 
-      console.log(user, 'user🔴🔴🔴🔴');
-
       setUser({
         uid: user.uid,
         email: user.email ?? '',
