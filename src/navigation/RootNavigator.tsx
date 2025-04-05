@@ -6,13 +6,16 @@ import WelcomeScreen from '../screens/Welcome/Welcome';
 import AuthStack from './authStack';
 import { useUser } from '../store/context/userContext';
 import HomeScreen from '../screens/home/HomeScreen';
+import LoadingScreen from '../components/LoadingScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
-  const { user } = useUser();
+  const { user, loading } = useUser();
 
-  console.log(user, 'usuario🔴🔴🔴🔴');
+  if (loading) {
+    return <LoadingScreen/>;
+  }
 
   return (
     <NavigationContainer>
