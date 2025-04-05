@@ -7,7 +7,7 @@ interface Props {
   type?: 'error' | 'success';
 }
 
-export default function CustomToast({ visible, message, type = 'error' }: Props) {
+ const CustomToast = ({ visible, message, type = 'error' }: Props) => {
   if (!visible) {return null;}
 
   return (
@@ -15,7 +15,7 @@ export default function CustomToast({ visible, message, type = 'error' }: Props)
       <Text style={styles.text}>{message}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   toast: {
@@ -43,3 +43,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#43A047',
   },
 });
+
+export default CustomToast;
