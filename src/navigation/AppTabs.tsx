@@ -30,9 +30,11 @@ export default function AppTabs() {
         tabBarInactiveTintColor: '#aaa',
         tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12 },
         tabBarStyle: {
+          height: 60,
           backgroundColor: '#fff',
-          borderTopWidth: 0,
-          elevation: 0,
+          borderTopWidth: 0.5,
+          borderTopColor: '#ddd',
+          position: 'absolute',
         },
       }}
     >
