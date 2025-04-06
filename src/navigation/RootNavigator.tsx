@@ -13,6 +13,8 @@ const Stack = createNativeStackNavigator();
 export default function RootNavigator() {
   const { user, loading } = useUser();
 
+  console.log(user, 'hay usuario?')
+
   if (loading) {
     return <LoadingScreen/>;
   }

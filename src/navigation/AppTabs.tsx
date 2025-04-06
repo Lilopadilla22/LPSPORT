@@ -1,11 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import LoginScreen from '../screens/Auth/login/LoginScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
 import AccountIcon from '../icons/AccountIcon';
 import HomeIcon from '../icons/HomeIcon';
 import BalloonIcon from '../icons/BalloonIcon';
+import MatchesScreen from '../screens/Matches/MatchesScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +49,7 @@ export default function AppTabs() {
       />
       <Tab.Screen
         name="Matches"
-        component={LoginScreen}
+        component={MatchesScreen}
         options={{
           tabBarLabel: 'Partidos',
           tabBarIcon: renderBallonIcon,
@@ -56,7 +57,7 @@ export default function AppTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={LoginScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: renderAccountIcon,
