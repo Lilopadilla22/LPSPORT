@@ -13,6 +13,7 @@ import { AuthStackParamList } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import CustomToast from '../../../components/CustomToast';
+import ChevronLeft from '../../../icons/ChevronLeft';
 
 const RegisterScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
@@ -30,9 +31,9 @@ const RegisterScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.back}>← Volver</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.containerGoBack}>
+        <ChevronLeft/>
+        <Text style={styles.back}>Volver</Text>
       </TouchableOpacity>
       <Text style={styles.title}>Crear cuenta</Text>
 
@@ -236,6 +237,9 @@ const styles = StyleSheet.create({
   },
   largeInput: {
     flex: 7,
+  },
+  containerGoBack: {
+    flexDirection: 'row',
   },
 });
 
