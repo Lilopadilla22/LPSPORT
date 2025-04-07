@@ -6,22 +6,33 @@ import SearchBar from '../../components/SearchBar';
 import { useSearch } from './Hooks/useSearch';
 import { Text } from 'react-native-gesture-handler';
 import MatchCard from '../../components/MatchCart';
-import { matchesMock } from '../../mocks/matches';
 import SearchSuggestions from '../../components/SearchSuggestions';
 import Title from '../../components/Title';
 import Banner from '../../components/Banner';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { matchesMock } from '../../mocks/matches';
 
+export type AppStackParamList = {
+  Home: undefined;
+  Matches: undefined;
+  Profile: undefined;
+  Complexes: undefined;
+};
 
 export default function HomeScreen() {
   const { user } = useUser();
   const bannerImage = require('../../../assets/banner1.png');
   const bannerImage2 = require('../../../assets/banner2.png');
   const bannerPrincipal = require('../../../assets/bannerPrincipal.png');
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+
   const {
     searchTerm,
     setSearchTerm,
     filteredMatches,
-    matchesIntermedio,
+    matchesDisponibles,
+    matchesRecomendados,
   } = useSearch();
 
   return (
@@ -45,12 +56,31 @@ export default function HomeScreen() {
         style={styles.containerBanner}
       />
 
-      <Title text="Partidos disponibles" />
+      <Title
+        text="Nuestros complejos deportivos"
+        buttonText="Ver todos"
+        onPress={() => navigation.navigate('Complexes')}
+      />
       <FlatList
         horizontal
         data={matchesMock}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MatchCard match={item} />}
+        renderItem={({ item }) => <MatchCard match={item} variant="complex" />}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainerStyle}
+        ListEmptyComponent={<Text>No hay partidos disponibles</Text>}
+      />
+
+      <Title
+        text="Partidos disponibles"
+        buttonText="Ver todos"
+        onPress={() => navigation.navigate('Matches')}
+      />
+      <FlatList
+        horizontal
+        data={matchesDisponibles}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <MatchCard match={item} variant="search" />}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.contentContainerStyle}
         ListEmptyComponent={<Text>No hay partidos disponibles</Text>}
@@ -63,14 +93,19 @@ export default function HomeScreen() {
         onPress={() => console.log('Ver más presionado')}
       />
 
-      <Title text="Partidos intermedios" />
+      <Title
+        text="Partidos Recomendado"
+        buttonText="Ver todos"
+        onPress={() => navigation.navigate('Matches')}
+      />
       <FlatList
         horizontal
-        data={matchesIntermedio}
+        data={matchesRecomendados}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MatchCard match={item} />}
+        renderItem={({ item }) => <MatchCard match={item} variant="matchmaking" />}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.contentContainerStyle}
+        ListEmptyComponent={<Text>No hay partidos Recomendados</Text>}
       />
       <Banner
         image={bannerImage2}
