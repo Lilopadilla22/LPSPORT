@@ -14,7 +14,7 @@ const ComplexScreen = () => {
   const { user } = useUser();
   const { searchTerm,
     setSearchTerm,
-    filteredComplexes, } = useComplexScreen();
+    filteredComplexes } = useComplexScreen();
   const navigation = useNavigation();
 
   return (

@@ -1,31 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Complex } from '../complextype';
-import { useUser } from '../../../store/context/userContext';
-
 import HeartOn from '../../../icons/HeartOn';
 import HeartOff from '../../../icons/HeartOff';
-import { useFavoriteStore } from '../favoriteStore';
-import { useToastStore } from '../../../store/context/toastStore';
+import { useComplexCard } from './useComplexCard';
 
 type Props = {
   complex: Complex;
 };
 
 const ComplexCard = ({ complex }: Props) => {
-  const { favorites, toggleFavorite } = useFavoriteStore();
-  const { user } = useUser();
-  const { showToast } = useToastStore();
-
-  const isFavorite = favorites.some(fav => fav.id === complex.id);
-
-  const handleFavorite = async () => {
-    await toggleFavorite(complex, user, showToast);
-  };
+  const { isFavorite, booked, handleFavorite, handleBooking } = useComplexCard(complex);
 
   const availabilityStyle = complex.available
     ? styles.available
     : styles.unavailable;
+
 
   return (
     <View style={styles.card}>
@@ -46,6 +36,18 @@ const ComplexCard = ({ complex }: Props) => {
       <Text style={[styles.availability, availabilityStyle]}>
         {complex.available ? 'Disponible para reservas' : 'No disponible'}
       </Text>
+
+      {complex.available && (
+        <TouchableOpacity
+          style={[styles.bookButton, booked && styles.disabledButton]}
+          onPress={handleBooking}
+          disabled={booked}
+        >
+          <Text style={styles.bookButtonText}>
+            {booked ? 'Ya apartada' : 'Apartar cancha'}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -90,5 +92,19 @@ const styles = StyleSheet.create({
   },
   unavailable: {
     color: '#cc0000',
+  },
+  bookButton: {
+    marginTop: 10,
+    paddingVertical: 10,
+    backgroundColor: '#000',
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  bookButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: '#aaa',
   },
 });
