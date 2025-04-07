@@ -12,7 +12,6 @@ import { useRegisterScreen } from './useRegisterScreen';
 import { AuthStackParamList } from '../../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import CustomToast from '../../../components/CustomToast';
 import ChevronLeft from '../../../icons/ChevronLeft';
 
 const RegisterScreen = () => {
@@ -22,8 +21,6 @@ const RegisterScreen = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     onSubmit,
-    toastVisible,
-    toastMessage,
     passwordFocused,
     setPasswordFocused,
   } = useRegisterScreen();
@@ -171,8 +168,6 @@ const RegisterScreen = () => {
           {isSubmitting ? 'Registrando...' : 'Registrarse'}
         </Text>
       </TouchableOpacity>
-
-      <CustomToast visible={toastVisible} message={toastMessage} />
     </ScrollView>
   );
 };

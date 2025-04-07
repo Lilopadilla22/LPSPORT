@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
 import { LoginFormData } from './Login';
 import { useUser } from '../../../store/context/userContext';
+import { useToastStore } from '../../../store/context/toastStore';
 
 const schema = yup.object({
   email: yup
@@ -19,9 +19,7 @@ const schema = yup.object({
 
 export function useLoginScreen() {
   const { setUser } = useUser();
-
-  const [toastVisible, setToastVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const { showToast } = useToastStore();
 
   const {
     control,
@@ -46,9 +44,10 @@ export function useLoginScreen() {
         displayName: user.displayName ?? '',
       });
     } catch (error: any) {
-      setToastMessage('Tu contraseña o email es incorrecto');
-      setToastVisible(true);
-      setTimeout(() => setToastVisible(false), 4000);
+      showToast({
+        message: 'Tu contraseña o email es incorrecto',
+        type: 'error',
+      });
     }
   };
 
@@ -57,7 +56,5 @@ export function useLoginScreen() {
     handleSubmit,
     formState,
     onSubmit,
-    toastVisible,
-    toastMessage,
   };
 }

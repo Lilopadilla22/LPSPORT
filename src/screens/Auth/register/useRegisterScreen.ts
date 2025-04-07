@@ -2,14 +2,22 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import auth from '@react-native-firebase/auth';
 import { RegisterFormData, registerSchema } from './Register';
-import { useUser } from '../../../store/context/userContext';
+import { User, useUser } from '../../../store/context/userContext';
 import { useState } from 'react';
+import { saveUserToStorage } from '../../../Utils/storage';
+import { useToastStore } from '../../../store/context/toastStore';
 
 export function useRegisterScreen() {
   const { setUser } = useUser();
-  const [toastVisible, setToastVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const { showToast } = useToastStore();
   const [passwordFocused, setPasswordFocused] = useState(false);
+
+  const setUserWithStorage = (userData: User) => {
+    setUser(userData);
+    if (!userData.isGuest) {
+      saveUserToStorage(userData);
+    }
+  };
 
   const {
     control,
@@ -30,7 +38,7 @@ export function useRegisterScreen() {
 
       await user.updateProfile({ displayName: data.displayName });
 
-      setUser({
+      setUserWithStorage({
         uid: user.uid,
         email: user.email ?? '',
         displayName: data.displayName,
@@ -43,11 +51,9 @@ export function useRegisterScreen() {
       });
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
-        setToastMessage('Este correo ya está registrado');
-        setToastVisible(true);
+        showToast({ message: 'Este correo ya está registrado', type: 'error' });
       } else {
-        setToastMessage('Ocurrió un error al registrarte');
-        setToastVisible(true);
+        showToast({ message: 'Ocurrió un error al registrarte', type: 'error' });
       }
     }
   };
@@ -57,9 +63,6 @@ export function useRegisterScreen() {
     handleSubmit,
     formState,
     onSubmit,
-    toastVisible,
-    toastMessage,
-    setToastVisible,
     passwordFocused,
     setPasswordFocused,
   };

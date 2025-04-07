@@ -11,7 +11,6 @@ import {
 import { Controller } from 'react-hook-form';
 import { useLoginScreen } from './useLoginScreen';
 import { useUser } from '../../../store/context/userContext';
-import CustomToast from '../../../components/CustomToast';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../navigation/types';
@@ -28,8 +27,6 @@ const LoginScreen = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     onSubmit,
-    toastVisible,
-    toastMessage,
   } = useLoginScreen();
 
   const { setGuestUser } = useUser();
@@ -114,8 +111,6 @@ const LoginScreen = () => {
           <Text style={styles.link}>Regístrate</Text>
         </Text>
       </TouchableOpacity>
-
-      <CustomToast visible={toastVisible} message={toastMessage} />
     </View>
   );
 };
