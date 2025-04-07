@@ -6,8 +6,8 @@ const GuestProfileScreen = () => {
   const navigation = useNavigation<any>();
   const { logout } = useUser();
 
-  const handleGuest = () => {
-    logout();
+  const handleGuest = async () => {
+    await logout();
     navigation.navigate('AuthStack');
   };
 

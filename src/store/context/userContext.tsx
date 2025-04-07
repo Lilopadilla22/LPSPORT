@@ -53,9 +53,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
-    auth().signOut();
+    await auth().signOut();
   };
 
   useEffect(() => {
