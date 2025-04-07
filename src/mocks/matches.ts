@@ -12,6 +12,7 @@ export const matchesMock: Match[] = [
     players: 8,
     maxPlayers: 10,
     location: 'Estadio Metropolitano',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -24,6 +25,7 @@ export const matchesMock: Match[] = [
     players: 4,
     maxPlayers: 8,
     location: 'Cancha Getsemaní',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -36,6 +38,7 @@ export const matchesMock: Match[] = [
     players: 6,
     maxPlayers: 10,
     location: 'Cancha Chipre',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -48,6 +51,7 @@ export const matchesMock: Match[] = [
     players: 9,
     maxPlayers: 10,
     location: 'Cancha Meléndez',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -60,6 +64,7 @@ export const matchesMock: Match[] = [
     players: 3,
     maxPlayers: 6,
     location: 'Cancha El Rodadero',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -72,6 +77,7 @@ export const matchesMock: Match[] = [
     players: 10,
     maxPlayers: 10,
     location: 'Cancha Playa Blanca',
+    available: false,
     image: require('../../assets/logo.png'),
   },
   {
@@ -84,6 +90,7 @@ export const matchesMock: Match[] = [
     players: 7,
     maxPlayers: 9,
     location: 'Cancha Olímpica',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -96,6 +103,7 @@ export const matchesMock: Match[] = [
     players: 5,
     maxPlayers: 8,
     location: 'Cancha La Pola',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -108,6 +116,7 @@ export const matchesMock: Match[] = [
     players: 6,
     maxPlayers: 10,
     location: 'Cancha Utrahuilca',
+    available: true,
     image: require('../../assets/logo.png'),
   },
   {
@@ -120,6 +129,7 @@ export const matchesMock: Match[] = [
     players: 10,
     maxPlayers: 10,
     location: 'Cancha La Libertad',
+    available: false,
     image: require('../../assets/logo.png'),
   },
 ];
