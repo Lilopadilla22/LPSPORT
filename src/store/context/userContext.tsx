@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import auth from '@react-native-firebase/auth';
+import { getUserFromStorage, saveUserToStorage } from '../../Utils/storage';
 
 export type UserLevel = 'novato' | 'intermedio' | 'avanzado';
 
@@ -36,6 +37,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const setUserWithStorage = (userData: User) => {
+    setUser(userData);
+    if (!userData.isGuest) {
+      saveUserToStorage(userData);
+    }
+  };
+
   const setGuestUser = () => {
     setUser({
       uid: 'guest',
@@ -51,16 +59,19 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((firebaseUser) => {
-      if (firebaseUser) {
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email ?? '',
-          displayName: firebaseUser.displayName ?? '',
-          isGuest: false,
-        });
-      } else {
-        setUser(null);
+    const unsubscribe = auth().onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser?.email) {
+        const userData = await getUserFromStorage(firebaseUser.email);
+        if (userData) {
+          setUserWithStorage(userData);
+        } else {
+          setUserWithStorage({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName ?? '',
+            isGuest: false,
+          });
+        }
       }
       setLoading(false);
     });
