@@ -9,6 +9,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import AppTabs from './AppTabs';
 import ComplexScreen from '../screens/Complex/ComplexScreen';
 import MatchSearchScreen from '../screens/MatchesSearch/MatchSearchScreen';
+import AccountScreen from '../screens/Account/AccountScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ export default function RootNavigator() {
             <Stack.Screen name="AppTabs" component={AppTabs} />
             <Stack.Screen name="Complexes" component={ComplexScreen} />
             <Stack.Screen name="MatchSearch" component={MatchSearchScreen} />
+            <Stack.Screen name="Account" component={AccountScreen} />
           </>
         ) : (
           <>
