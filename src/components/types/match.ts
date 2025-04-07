@@ -9,4 +9,5 @@ export type Match = {
   maxPlayers: number;
   location: string;
   image: any;
+  available: boolean,
 };
