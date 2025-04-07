@@ -1,30 +1,34 @@
 import React from 'react';
-import { Text, StyleSheet, View, TextStyle, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 type Props = {
   text: string;
-  style?: TextStyle;
-  containerStyle?: ViewStyle;
+  buttonText?: string;
+  onPress?: () => void;
 };
 
-const Title = ({ text, style, containerStyle }: Props) => {
-  return (
-    <View style={[styles.container, containerStyle]}>
-      <Text style={[styles.title, style]}>{text}</Text>
-    </View>
-  );
-};
+const Title = ({ text, buttonText, onPress }: Props) => (
+  <View style={styles.container}>
+    <Text style={styles.title}>{text}</Text>
+    {buttonText && onPress && (
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.button}>{buttonText}</Text>
+      </TouchableOpacity>
+    )}
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
-    paddingHorizontal: 20,
+    marginHorizontal: 16,
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#061730',
-  },
+  title: { fontSize: 18, fontWeight: 'bold' },
+  button: { fontSize: 14, color: '#469b89' },
 });
 
 export default Title;
+
