@@ -4,7 +4,7 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import AccountIcon from '../icons/AccountIcon';
 import HomeIcon from '../icons/HomeIcon';
 import BalloonIcon from '../icons/BalloonIcon';
-import MatchesScreen from '../screens/Matches/MatchesScreen';
+import MatchesScreen from '../screens/Matchmaking/MatchesScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 
 
