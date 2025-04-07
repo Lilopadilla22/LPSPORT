@@ -1,10 +1,30 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useUser } from '../../store/context/userContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 
 
 const ProfileScreen = () => {
 
   const { user, logout } = useUser();
+
+  useEffect(() => {
+    const checkStorage = async () => {
+      try {
+        const keys = await AsyncStorage.getAllKeys();
+        const items = await AsyncStorage.multiGet(keys);
+
+        console.log('consultanding', keys);
+        items.forEach(([key, value]) => {
+          console.log(`[${key}]:`, JSON.parse(value || 'null'));
+        });
+      } catch (e) {
+        console.error('errooooooor', e);
+      }
+    };
+
+    checkStorage();
+  }, []);
 
   console.log(user, 'Hola')
   return (
