@@ -1,97 +1,135 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# LPSPORT
 
-# Getting Started
+LPSPORT es una aplicación móvil deportiva desarrollada en **React Native CLI** con **Firebase** y **Zustand**, pensada para facilitar la búsqueda de partidos, complejos deportivos y recomendaciones personalizadas según el nivel del usuario.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## 🚀 Tecnologías utilizadas
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **React Native CLI**
+- **TypeScript**
+- **Firebase Authentication**
+- **AsyncStorage** (persistencia local)
+- **Zustand** (gestión global de estado)
+- **react-hook-form** + **Yup** (formularios y validaciones)
+- **React Navigation** (navegación entre pantallas)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 📆 Funcionalidades principales
 
-# OR using Yarn
-yarn start
+### 1. Registro e inicio de sesión
+- Formulario de registro con datos opcionales.
+- Autenticación con Firebase.
+- Acceso como **invitado**.
+
+### 2. Perfil
+- Visualización y edición de datos personales.
+- Barra de progreso con animación según porcentaje de perfil completado.
+- Vista distinta para usuarios invitados.
+
+### 3. Home
+- Header personalizado con ciudad y logo.
+- Buscador con sugerencias en tiempo real (search suggestions).
+- Secciones de partidos:
+  - Disponibles
+  - Recomendados por nivel
+  - Complejos deportivos (vista resumen)
+
+### 4. Pantalla de complejos deportivos
+- Lista de complejos con ciudad y distancia.
+- Buscador por nombre o ciudad.
+- Marcar favoritos.
+- Apartar canchas (simulado).
+- Toasts personalizados para cada acción.
+
+### 5. Búsqueda de partidos
+- Filtrado por ciudad y nivel.
+- Tarjetas con ranking mínimo y jugadores actuales.
+- Botón de "Unirse" (simulado).
+
+### 6. Matchmaking
+- Partidos sugeridos según el nivel del jugador.
+- Filtros por nivel automáticos.
+
+### 7. Persistencia local
+- Perfil y favoritos guardados en AsyncStorage.
+- Datos sincronizados tras login.
+
+---
+
+## 🚀 Cómo iniciar el proyecto
+
+1. Clona el repositorio:
+
+```bash
+git clone <url-del-repo>
+cd lpsport
 ```
 
-## Step 2: Build and run your app
+2. Instala las dependencias:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+```bash
+yarn install
+```
 
-### Android
+3. Ejecuta el proyecto en Android:
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
+```bash
 yarn android
 ```
 
-### iOS
+> Asegúrate de tener un emulador abierto o un dispositivo conectado por USB.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+4. Si es la primera vez, también corre:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+cd android && ./gradlew clean
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## 🔧 Instalación
+
+```bash
+npm install
+cd android
+./gradlew clean
+./gradlew assembleRelease
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## El APK se encontrará en:
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```
+android/app/build/outputs/apk/release/app-release.apk
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 📱 Capturas de pantalla
+> Puedes agregar aquí tus capturas con:
+```
+![Welcome](./assets/Images/welcome.png)
+![Welcome](./assets/Images/Register.png)
 
-## Step 3: Modify your app
+```
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 🚫 Por hacer / Futuras mejoras
+- Analytics. 
+- Notificaciones push.
+- Animaciones más avanzadas.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### 📋 Tablero de tareas y mejoras
 
-## Congratulations! :tada:
+Puedes seguir el progreso del proyecto, ideas y pendientes en el tablero de Trello:
 
-You've successfully run and modified your React Native App. :partying_face:
+🔗 [Trello - LPSPORT](https://trello.com/b/r5tOyV08/lpsport)
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 📢 Crédito
+Desarrollado por **Lilia Padilla**.
