@@ -11,13 +11,15 @@ import Title from '../../components/Title';
 import Banner from '../../components/Banner';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { matchesMock } from '../../mocks/matches';
+import { complexesMock } from '../../mocks/complex';
+import ComplexMiniCard from '../Complex/components/ComplexMiniCard';
 
 export type AppStackParamList = {
   Home: undefined;
   Matches: undefined;
   Profile: undefined;
   Complexes: undefined;
+  MatchSearch: undefined;
 };
 
 export default function HomeScreen() {
@@ -63,9 +65,9 @@ export default function HomeScreen() {
       />
       <FlatList
         horizontal
-        data={matchesMock}
+        data={complexesMock}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MatchCard match={item} variant="complex" />}
+        renderItem={({ item }) => <ComplexMiniCard complex={item} />}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.contentContainerStyle}
         ListEmptyComponent={<Text>No hay partidos disponibles</Text>}
@@ -74,7 +76,7 @@ export default function HomeScreen() {
       <Title
         text="Partidos disponibles"
         buttonText="Ver todos"
-        onPress={() => navigation.navigate('Matches')}
+        onPress={() => navigation.navigate('MatchSearch')}
       />
       <FlatList
         horizontal

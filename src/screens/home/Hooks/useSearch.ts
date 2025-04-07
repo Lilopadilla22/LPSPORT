@@ -28,11 +28,8 @@ export const useSearch = () => {
   }, [user?.level]);
 
   const matchesDisponibles = useMemo(() => {
-    const userCity = normalizeText(user?.city ?? '');
-    return matchesMock.filter(
-      (match) => normalizeText(match.city) === userCity
-    );
-  }, [user?.city]);
+    return matchesMock.filter((match) => match.available);
+  }, []);
 
   return {
     searchTerm,
