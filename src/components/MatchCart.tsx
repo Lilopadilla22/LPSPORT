@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Match } from './types/match';
 
+
 type MatchCardProps = {
   match: Match;
   variant: 'complex' | 'search' | 'matchmaking';
@@ -36,30 +37,33 @@ const MatchCard = ({ match, variant }: MatchCardProps) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 220,
-    height: 250,
+    width: 200,
+    height: 240,
     borderRadius: 12,
     overflow: 'hidden',
     marginRight: 12,
     backgroundColor: '#fff',
+    elevation: 2,
     marginTop: 8,
+    padding: 8,
   },
   image: {
     width: '100%',
-    height: 160,
+    height: 140,
+    borderRadius: 10,
     marginBottom: 8,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
-    paddingHorizontal: 8,
-    marginBottom: 4,
+    fontSize: 16,
+    paddingHorizontal: 4,
+    marginBottom: 2,
   },
   detail: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#666',
-    paddingHorizontal: 8,
-    marginBottom: 4,
+    paddingHorizontal: 4,
+    marginBottom: 2,
   },
 });
 
