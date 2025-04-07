@@ -7,31 +7,38 @@ import { normalizeText } from '../../../Utils/normalizeText';
 export const useSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { user } = useUser();
+
   const filteredMatches = useMemo(() => {
-    const term = normalizeText(searchTerm);
+    const term = normalizeText(searchTerm).trim();
 
     return matchesMock.filter(match => {
       const title = normalizeText(match.title);
       const city = normalizeText(match.city);
-      const userCity = normalizeText(user?.city ?? '');
 
-      return (
-        (title.includes(term) || city.includes(term)) &&
-        (user?.city ? city === userCity : true)
-      );
+      return title.includes(term) || city.includes(term);
     });
-  }, [searchTerm, user?.city]);
+  }, [searchTerm]);
 
-  const matchesNovato = matchesMock.filter((m) => m.level === 'novato');
-  const matchesIntermedio = matchesMock.filter((m) => m.level === 'intermedio');
-  const matchesAvanzado = matchesMock.filter((m) => m.level === 'avanzado');
+  const matchesRecomendados = useMemo(() => {
+    const userLevel = user?.level;
+
+    if (!userLevel) {return [];}
+
+    return matchesMock.filter((match) => match.level === userLevel);
+  }, [user?.level]);
+
+  const matchesDisponibles = useMemo(() => {
+    const userCity = normalizeText(user?.city ?? '');
+    return matchesMock.filter(
+      (match) => normalizeText(match.city) === userCity
+    );
+  }, [user?.city]);
 
   return {
     searchTerm,
     setSearchTerm,
     filteredMatches,
-    matchesNovato,
-    matchesIntermedio,
-    matchesAvanzado,
+    matchesRecomendados,
+    matchesDisponibles,
   };
 };
