@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useToastStore } from '../store/context/toastStore';
 
-interface Props {
-  visible: boolean;
-  message: string;
-  type?: 'error' | 'success';
-}
 
- const CustomToast = ({ visible, message, type = 'error' }: Props) => {
-  if (!visible) {return null;}
+const CustomToast = () => {
+  const { toastVisible, toastMessage, toastType, hideToast } = useToastStore();
+
+  useEffect(() => {
+    if (toastVisible) {
+      const timer = setTimeout(() => {
+        hideToast();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastVisible, hideToast]);
+
+  if (!toastVisible) {return null;}
 
   return (
-    <View style={[styles.toast, type === 'error' ? styles.error : styles.success]}>
-      <Text style={styles.text}>{message}</Text>
+    <View style={[styles.toast, toastType === 'error' ? styles.error : styles.success]}>
+      <Text style={styles.text}>{toastMessage}</Text>
     </View>
   );
 };

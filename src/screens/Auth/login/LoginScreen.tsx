@@ -11,13 +11,15 @@ import {
 import { Controller } from 'react-hook-form';
 import { useLoginScreen } from './useLoginScreen';
 import { useUser } from '../../../store/context/userContext';
-import CustomToast from '../../../components/CustomToast';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../navigation/types';
+import ChevronLeft from '../../../icons/ChevronLeft';
+import EyeOpen from '../../../icons/EyeOpen';
+import EyeClosed from '../../../icons/EyeClosed';
 
 
- const LoginScreen = ()  => {
+const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const {
@@ -25,16 +27,15 @@ import { AuthStackParamList } from '../../../navigation/types';
     handleSubmit,
     formState: { errors, isSubmitting },
     onSubmit,
-    toastVisible,
-    toastMessage,
   } = useLoginScreen();
 
   const { setGuestUser } = useUser();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.back}>← Volver</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.containerGoBack}>
+        <ChevronLeft />
+        <Text style={styles.back}>Volver</Text>
       </TouchableOpacity>
 
       <Image
@@ -73,8 +74,12 @@ import { AuthStackParamList } from '../../../navigation/types';
               onChangeText={onChange}
               value={value}
             />
-            <Pressable onPress={() => setShowPassword(!showPassword)}>
-              <Text style={styles.eye}>{showPassword ? '🙈' : '👁️'}</Text>
+            <Pressable style={styles.eye} onPress={() => setShowPassword(!showPassword)}>
+              {showPassword ? (
+                <EyeOpen width={24} height={24} />
+              ) : (
+                <EyeClosed width={24} height={24} />
+              )}
             </Pressable>
           </View>
         )}
@@ -101,13 +106,11 @@ import { AuthStackParamList } from '../../../navigation/types';
       <TouchableOpacity
         onPress={() => navigation.navigate('Register')}
       >
-      <Text style={styles.bottomText}>
-        ¿No tienes cuenta?{' '}
-        <Text style={styles.link}>Regístrate</Text>
-      </Text>
+        <Text style={styles.bottomText}>
+          ¿No tienes cuenta?{' '}
+          <Text style={styles.link}>Regístrate</Text>
+        </Text>
       </TouchableOpacity>
-
-      <CustomToast visible={toastVisible} message={toastMessage} />
     </View>
   );
 };
@@ -148,8 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   eye: {
-    fontSize: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
   },
   buttonPrimary: {
     backgroundColor: '#000000',
@@ -184,6 +186,9 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
     marginBottom: 4,
+  },
+  containerGoBack: {
+    flexDirection: 'row',
   },
 });
 

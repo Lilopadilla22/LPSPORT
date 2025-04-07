@@ -8,23 +8,20 @@ import {
   ScrollView,
 } from 'react-native';
 import { Controller } from 'react-hook-form';
-import { useRegisterScreen } from './useRegisterScreen';
-import { AuthStackParamList } from '../../../navigation/types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import ChevronLeft from '../../icons/ChevronLeft';
 import { useNavigation } from '@react-navigation/native';
-import ChevronLeft from '../../../icons/ChevronLeft';
+import { useAccount } from './useAccount';
 
-const RegisterScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
+const AccountScreen = () => {
+  const navigation = useNavigation();
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
     onSubmit,
-    passwordFocused,
-    setPasswordFocused,
-  } = useRegisterScreen();
-
+    errors,
+    isSubmitting,
+  } = useAccount();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -32,36 +29,27 @@ const RegisterScreen = () => {
         <ChevronLeft/>
         <Text style={styles.back}>Volver</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>Crear cuenta</Text>
+      <Text style={styles.title}>Mi cuenta</Text>
 
-      <Text style={styles.label}>Email *</Text>
+      <Text style={styles.label}>Email</Text>
       <Controller
         control={control}
         name="email"
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { value } }) => (
           <TextInput
-            placeholder="correo@ejemplo.com"
-            style={styles.input}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            onChangeText={onChange}
+            style={[styles.input, styles.disabledInput]}
             value={value}
+            editable={false}
           />
         )}
       />
-      {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
-      <Text style={styles.label}>Nombre *</Text>
+      <Text style={styles.label}>Nombre</Text>
       <Controller
         control={control}
         name="displayName"
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            placeholder="Nombre"
-            style={styles.input}
-            onChangeText={onChange}
-            value={value}
-          />
+          <TextInput style={styles.input} onChangeText={onChange} value={value} />
         )}
       />
       {errors.displayName && <Text style={styles.error}>{errors.displayName.message}</Text>}
@@ -71,7 +59,7 @@ const RegisterScreen = () => {
         control={control}
         name="lastName"
         render={({ field: { onChange, value } }) => (
-          <TextInput placeholder="Apellido" style={styles.input} onChangeText={onChange} value={value} />
+          <TextInput style={styles.input} onChangeText={onChange} value={value} />
         )}
       />
 
@@ -80,24 +68,18 @@ const RegisterScreen = () => {
         control={control}
         name="city"
         render={({ field: { onChange, value } }) => (
-          <TextInput placeholder="Ciudad" style={styles.input} onChangeText={onChange} value={value} />
+          <TextInput style={styles.input} onChangeText={onChange} value={value} />
         )}
       />
 
-      <Text style={styles.label}>Nivel *</Text>
+      <Text style={styles.label}>Nivel</Text>
       <Controller
         control={control}
         name="level"
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            placeholder="novato / intermedio / avanzado"
-            style={styles.input}
-            onChangeText={onChange}
-            value={value}
-          />
+          <TextInput style={styles.input} onChangeText={onChange} value={value} />
         )}
       />
-      {errors.level && <Text style={styles.error}>{errors.level.message}</Text>}
 
       <View style={styles.row}>
         <View style={styles.smallInput}>
@@ -107,7 +89,6 @@ const RegisterScreen = () => {
             name="age"
             render={({ field: { onChange, value } }) => (
               <TextInput
-                placeholder="Edad"
                 style={styles.input}
                 keyboardType="numeric"
                 onChangeText={text => onChange(Number(text))}
@@ -122,60 +103,22 @@ const RegisterScreen = () => {
             control={control}
             name="cc"
             render={({ field: { onChange, value } }) => (
-              <TextInput
-                placeholder="Cédula"
-                style={styles.input}
-                onChangeText={onChange}
-                value={value}
-              />
+              <TextInput style={styles.input} onChangeText={onChange} value={value} />
             )}
           />
         </View>
       </View>
-
-      <Text style={styles.label}>Contraseña *</Text>
-      <Controller
-        control={control}
-        name="password"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <TextInput
-              placeholder="Contraseña"
-              style={styles.input}
-              secureTextEntry
-              onChangeText={onChange}
-              value={value}
-              onFocus={() => setPasswordFocused(true)}
-              onBlur={() => setPasswordFocused(false)}
-            />
-            {passwordFocused && (
-              <View style={styles.rules}>
-                <Text style={getRuleStyle((value ?? '').length >= 8)}>• Mínimo 8 caracteres</Text>
-                <Text style={getRuleStyle(/[A-Z]/.test(value))}>• Al menos una mayúscula</Text>
-                <Text style={getRuleStyle(/\d/.test(value))}>• Al menos un número</Text>
-              </View>
-            )}
-          </>
-        )}
-      />
 
       <TouchableOpacity
         style={styles.button}
         onPress={handleSubmit(onSubmit)}
         disabled={isSubmitting}
       >
-        <Text style={styles.buttonText}>
-          {isSubmitting ? 'Registrando...' : 'Registrarse'}
-        </Text>
+        <Text style={styles.buttonText}>{isSubmitting ? 'Guardando...' : 'Guardar cambios'}</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
-
-const getRuleStyle = (valid: boolean) => ({
-  color: valid ? 'green' : 'red',
-  fontSize: 12,
-});
 
 const styles = StyleSheet.create({
   container: {
@@ -203,9 +146,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
   },
-  rules: {
-    marginTop: 4,
-    marginBottom: 4,
+  disabledInput: {
+    backgroundColor: '#eee',
+    color: '#666',
   },
   error: {
     color: 'red',
@@ -238,5 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
-
+export default AccountScreen;
