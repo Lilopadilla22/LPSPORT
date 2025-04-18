@@ -98,14 +98,6 @@ cd android
 ./gradlew assembleRelease
 ```
 
-## El APK se encontrará en:
-
-```
-android/app/build/outputs/apk/release/app-release.apk
-```
-
----
-
 ## 📱 Capturas de pantalla
 > Puedes agregar aquí tus capturas con:
 ```
