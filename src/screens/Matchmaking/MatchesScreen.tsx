@@ -1,14 +1,14 @@
 import { FlatList, StyleSheet, View, Text } from 'react-native';
 import CustomHeader from '../../components/CustomHeader';
-import { useUser } from '../../store/context/userContext';
 import Title from '../../components/Title';
 import SearchBar from '../../components/SearchBar';
 import MatchGridCard from '../../components/MatchGridCard';
 import { useMatchmakingScreen } from './useMatchmakingScreen';
+import { useUserStore } from '../../store/context/userStore';
 
 
 const MatchesScreen = () => {
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const { filteredMatches, city, setCity } = useMatchmakingScreen();
 
   return (

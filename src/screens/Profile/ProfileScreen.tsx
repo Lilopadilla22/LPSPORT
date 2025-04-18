@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useUser } from '../../store/context/userContext';
 import CustomHeader from '../../components/CustomHeader';
 import GuestProfileScreen from './GuestProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ProfileProgressBar from './Components/ProfileProgressBar';
+import { useUserStore } from '../../store/context/userStore';
 
 export type ProfileParamList = {
   Home: undefined;
@@ -13,7 +13,8 @@ export type ProfileParamList = {
 };
 
 export default function ProfileScreen() {
-  const { user, logout } = useUser();
+  const user = useUserStore(state => state.user);
+  const logout = useUserStore(state => state.logout);
   const navigation = useNavigation<NativeStackNavigationProp<ProfileParamList>>();
 
   if (!user || user.isGuest) {

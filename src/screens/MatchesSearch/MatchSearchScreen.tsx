@@ -4,16 +4,14 @@ import CustomHeader from '../../components/CustomHeader';
 import SearchBar from '../../components/SearchBar';
 import Title from '../../components/Title';
 import { Text } from 'react-native-gesture-handler';
-
-
-import { useUser } from '../../store/context/userContext';
 import { useMatchSearch } from './useMatchSearchScreen';
 import MatchJoinCard from './components/MatchJoinCard';
 import { useNavigation } from '@react-navigation/native';
 import ChevronLeft from '../../icons/ChevronLeft';
+import { useUserStore } from '../../store/context/userStore';
 
 const MatchSearchScreen = () => {
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const navigation = useNavigation();
   const {
     searchTerm,

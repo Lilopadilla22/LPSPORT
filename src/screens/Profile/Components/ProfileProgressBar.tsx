@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import { User } from '../../../store/context/userContext';
+import { User } from '../../../store/context/userStore';
 
 
 const getProgress = (user: User | null) => {
