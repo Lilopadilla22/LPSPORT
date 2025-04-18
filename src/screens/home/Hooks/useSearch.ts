@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
-import { useUser } from '../../../store/context/userContext';
 import { matchesMock } from '../../../mocks/matches';
 import { normalizeText } from '../../../Utils/normalizeText';
+import { useUserStore } from '../../../store/context/userStore';
 
 
 export const useSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
 
   const filteredMatches = useMemo(() => {
     const term = normalizeText(searchTerm).trim();

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { User } from '../store/context/userContext';
+import { User } from '../store/context/userStore';
 
 export const saveUserToStorage = async (user: User) => {
   try {

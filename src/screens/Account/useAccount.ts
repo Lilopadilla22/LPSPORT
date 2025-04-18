@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useUser } from '../../store/context/userContext';
 import { useToastStore } from '../../store/context/toastStore';
 import { saveUserToStorage } from '../../Utils/storage';
 import { accountSchema, MyAccountFormData } from './Account';
+import { useUserStore } from '../../store/context/userStore';
 
 export const useAccount = () => {
-  const { user, setUser } = useUser();
+  const user = useUserStore(state => state.user);
+  const setUser = useUserStore(state => state.setUser);
   const { showToast } = useToastStore();
 
   const {
@@ -32,7 +32,8 @@ export const useAccount = () => {
       const updatedUser = {
         ...user,
         ...data,
-        uid: user!.uid,
+        uid: user?.uid ?? '',
+        isGuest: false,
       };
 
       setUser(updatedUser);
