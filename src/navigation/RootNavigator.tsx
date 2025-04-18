@@ -18,8 +18,6 @@ export default function RootNavigator() {
   const user = useUserStore(state => state.user);
   const loading = useUserStore(state => state.loading);
 
-  console.log(loading, 'QUEESTA PASANDOAQUIII')
-
   if (loading) {
     return <LoadingScreen/>;
   }
