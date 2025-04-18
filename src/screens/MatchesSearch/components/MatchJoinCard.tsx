@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Match } from '../../../components/types/match';
-import { useUser } from '../../../store/context/userContext';
 import { useToastStore } from '../../../store/context/toastStore';
+import { useUserStore } from '../../../store/context/userStore';
 
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const MatchJoinCard = ({ match }: Props) => {
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const { showToast } = useToastStore();
 
   const handleJoin = () => {

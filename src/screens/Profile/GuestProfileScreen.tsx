@@ -1,10 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useUser } from '../../store/context/userContext';
 import { useNavigation } from '@react-navigation/native';
+import { useUserStore } from '../../store/context/userStore';
 
 const GuestProfileScreen = () => {
   const navigation = useNavigation<any>();
-  const { logout } = useUser();
+  const logout = useUserStore(state => state.logout);
 
   const handleGuest = async () => {
     await logout();

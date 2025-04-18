@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { useLoginScreen } from './useLoginScreen';
-import { useUser } from '../../../store/context/userContext';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../../navigation/types';
 import ChevronLeft from '../../../icons/ChevronLeft';
 import EyeOpen from '../../../icons/EyeOpen';
 import EyeClosed from '../../../icons/EyeClosed';
+import { useUserStore } from '../../../store/context/userStore';
 
 
 const LoginScreen = () => {
@@ -29,7 +29,7 @@ const LoginScreen = () => {
     onSubmit,
   } = useLoginScreen();
 
-  const { setGuestUser } = useUser();
+  const setGuestUser = useUserStore(state => state.setGuestUser);
 
   return (
     <View style={styles.container}>

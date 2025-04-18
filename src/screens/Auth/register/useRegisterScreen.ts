@@ -2,22 +2,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import auth from '@react-native-firebase/auth';
 import { RegisterFormData, registerSchema } from './Register';
-import { User, useUser } from '../../../store/context/userContext';
 import { useState } from 'react';
 import { saveUserToStorage } from '../../../Utils/storage';
 import { useToastStore } from '../../../store/context/toastStore';
+import { useUserStore } from '../../../store/context/userStore';
 
 export function useRegisterScreen() {
-  const { setUser } = useUser();
+  const setUser = useUserStore(state => state.setUser);
   const { showToast } = useToastStore();
   const [passwordFocused, setPasswordFocused] = useState(false);
-
-  const setUserWithStorage = (userData: User) => {
-    setUser(userData);
-    if (!userData.isGuest) {
-      saveUserToStorage(userData);
-    }
-  };
 
   const {
     control,
@@ -38,7 +31,7 @@ export function useRegisterScreen() {
 
       await user.updateProfile({ displayName: data.displayName });
 
-      setUserWithStorage({
+      const userData = {
         uid: user.uid,
         email: user.email ?? '',
         displayName: data.displayName,
@@ -48,7 +41,11 @@ export function useRegisterScreen() {
         age: data.age,
         cc: data.cc,
         isGuest: false,
-      });
+      };
+
+      setUser(userData);
+      await saveUserToStorage(userData);
+
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         showToast({ message: 'Este correo ya está registrado', type: 'error' });

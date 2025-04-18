@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Complex } from './complextype';
-import { User } from '../../store/context/userContext';
+import { User } from '../../store/context/userStore';
 import { getFavorites, saveFavorites } from '../../Utils/getFavorites';
 
 type ToastType = 'success' | 'error';
@@ -17,10 +17,12 @@ type FavoriteStore = {
 
 export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
   favorites: [],
+
   loadFavorites: async (user) => {
     const data = await getFavorites(user.email);
     set({ favorites: data });
   },
+
   toggleFavorite: async (complex, user, onToast) => {
     if (!user || user.isGuest) {
       onToast({ message: 'Inicia sesión para marcar favoritos', type: 'error' });
@@ -42,3 +44,4 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
     });
   },
 }));
+

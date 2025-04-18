@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/Home/HomeScreen';
+import HomeScreen from '../screens/home/HomeScreen';
 import AccountIcon from '../icons/AccountIcon';
 import HomeIcon from '../icons/HomeIcon';
 import BalloonIcon from '../icons/BalloonIcon';

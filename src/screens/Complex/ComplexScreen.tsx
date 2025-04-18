@@ -2,16 +2,17 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import CustomHeader from '../../components/CustomHeader';
-import { useUser } from '../../store/context/userContext';
+
 import { useComplexScreen } from './useComplexScreen';
 import ComplexCard from './components/ComplexCard';
 import SearchBar from '../../components/SearchBar';
 import ChevronLeft from '../../icons/ChevronLeft';
 import { useNavigation } from '@react-navigation/native';
+import { useUserStore } from '../../store/context/userStore';
 
 
 const ComplexScreen = () => {
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const { searchTerm,
     setSearchTerm,
     filteredComplexes } = useComplexScreen();

@@ -4,17 +4,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import WelcomeScreen from '../screens/Welcome/Welcome';
 import AuthStack from './authStack';
-import { useUser } from '../store/context/userContext';
+
 import LoadingScreen from '../components/LoadingScreen';
 import AppTabs from './AppTabs';
 import ComplexScreen from '../screens/Complex/ComplexScreen';
 import MatchSearchScreen from '../screens/MatchesSearch/MatchSearchScreen';
 import AccountScreen from '../screens/Account/AccountScreen';
+import { useUserStore } from '../store/context/userStore';
 
 const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
-  const { user, loading } = useUser();
+  const user = useUserStore(state => state.user);
+  const loading = useUserStore(state => state.loading);
 
   if (loading) {
     return <LoadingScreen/>;

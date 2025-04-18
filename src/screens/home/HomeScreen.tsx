@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Image, FlatList, ScrollView } from 'react-native';
-import { useUser } from '../../store/context/userContext';
 import CustomHeader from '../../components/CustomHeader';
 import SearchBar from '../../components/SearchBar';
 import { useSearch } from './Hooks/useSearch';
@@ -13,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { complexesMock } from '../../mocks/complex';
 import ComplexMiniCard from '../Complex/components/ComplexMiniCard';
+import { useUserStore } from '../../store/context/userStore';
 
 export type AppStackParamList = {
   Home: undefined;
@@ -23,7 +23,7 @@ export type AppStackParamList = {
 };
 
 export default function HomeScreen() {
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const bannerImage = require('../../../assets/banner1.png');
   const bannerImage2 = require('../../../assets/banner2.png');
   const bannerPrincipal = require('../../../assets/bannerPrincipal.png');

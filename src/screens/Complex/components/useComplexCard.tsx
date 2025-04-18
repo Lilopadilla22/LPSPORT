@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Complex } from '../complextype';
-import { useUser } from '../../../store/context/userContext';
 import { useFavoriteStore } from '../favoriteStore';
 import { useToastStore } from '../../../store/context/toastStore';
+import { useUserStore } from '../../../store/context/userStore';
 
 export const useComplexCard = (complex: Complex) => {
   const [booked, setBooked] = useState(false);
-  const { user } = useUser();
+  const user = useUserStore(state => state.user);
   const { favorites, toggleFavorite } = useFavoriteStore();
   const { showToast } = useToastStore();
 
